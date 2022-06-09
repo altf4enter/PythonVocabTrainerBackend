@@ -1,0 +1,4 @@
+Help on function parse in ijson:
+
+parse(source, buf_size=65536, **config)
+

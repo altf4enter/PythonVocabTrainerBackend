@@ -1,0 +1,5 @@
+Help on function compile in re:
+
+re.compile = compile(pattern, flags=0)
+    Compile a regular expression pattern, returning a Pattern object.
+

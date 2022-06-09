@@ -1,0 +1,502 @@
+Help on bernoulli_gen in scipy.stats object:
+
+scipy.stats.bernoulli = class bernoulli_gen(binom_gen)
+ |  scipy.stats.bernoulli(a=0, b=inf, name=None, badvalue=None, moment_tol=1e-08, values=None, inc=1, longname=None, shapes=None, extradoc=None, seed=None)
+ |  
+ |  A Bernoulli discrete random variable.
+ |  
+ |  %(before_notes)s
+ |  
+ |  Notes
+ |  -----
+ |  The probability mass function for `bernoulli` is:
+ |  
+ |  .. math::
+ |  
+ |     f(k) = \begin{cases}1-p  &\text{if } k = 0\\
+ |                         p    &\text{if } k = 1\end{cases}
+ |  
+ |  for :math:`k` in :math:`\{0, 1\}`, :math:`0 \leq p \leq 1`
+ |  
+ |  `bernoulli` takes :math:`p` as shape parameter,
+ |  where :math:`p` is the probability of a single success 
+ |  and :math:`1-p` is the probability of a single failure. 
+ |  
+ |  %(after_notes)s
+ |  
+ |  %(example)s
+ |  
+ |  Method resolution order:
+ |      bernoulli_gen
+ |      binom_gen
+ |      scipy.stats._distn_infrastructure.rv_discrete
+ |      scipy.stats._distn_infrastructure.rv_generic
+ |      builtins.object
+ |  
+ |  Methods inherited from scipy.stats._distn_infrastructure.rv_discrete:
+ |  
+ |  __getstate__(self)
+ |  
+ |  __init__(self, a=0, b=inf, name=None, badvalue=None, moment_tol=1e-08, values=None, inc=1, longname=None, shapes=None, extradoc=None, seed=None)
+ |      Initialize self.  See help(type(self)) for accurate signature.
+ |  
+ |  cdf(self, k, *args, **kwds)
+ |      Cumulative distribution function of the given RV.
+ |      
+ |      Parameters
+ |      ----------
+ |      k : array_like, int
+ |          Quantiles.
+ |      arg1, arg2, arg3,... : array_like
+ |          The shape parameter(s) for the distribution (see docstring of the
+ |          instance object for more information).
+ |      loc : array_like, optional
+ |          Location parameter (default=0).
+ |      
+ |      Returns
+ |      -------
+ |      cdf : ndarray
+ |          Cumulative distribution function evaluated at `k`.
+ |  
+ |  expect(self, func=None, args=(), loc=0, lb=None, ub=None, conditional=False, maxcount=1000, tolerance=1e-10, chunksize=32)
+ |      Calculate expected value of a function with respect to the distribution
+ |      for discrete distribution by numerical summation.
+ |      
+ |      Parameters
+ |      ----------
+ |      func : callable, optional
+ |          Function for which the expectation value is calculated.
+ |          Takes only one argument.
+ |          The default is the identity mapping f(k) = k.
+ |      args : tuple, optional
+ |          Shape parameters of the distribution.
+ |      loc : float, optional
+ |          Location parameter.
+ |          Default is 0.
+ |      lb, ub : int, optional
+ |          Lower and upper bound for the summation, default is set to the
+ |          support of the distribution, inclusive (``lb <= k <= ub``).
+ |      conditional : bool, optional
+ |          If true then the expectation is corrected by the conditional
+ |          probability of the summation interval. The return value is the
+ |          expectation of the function, `func`, conditional on being in
+ |          the given interval (k such that ``lb <= k <= ub``).
+ |          Default is False.
+ |      maxcount : int, optional
+ |          Maximal number of terms to evaluate (to avoid an endless loop for
+ |          an infinite sum). Default is 1000.
+ |      tolerance : float, optional
+ |          Absolute tolerance for the summation. Default is 1e-10.
+ |      chunksize : int, optional
+ |          Iterate over the support of a distributions in chunks of this size.
+ |          Default is 32.
+ |      
+ |      Returns
+ |      -------
+ |      expect : float
+ |          Expected value.
+ |      
+ |      Notes
+ |      -----
+ |      For heavy-tailed distributions, the expected value may or may not exist,
+ |      depending on the function, `func`. If it does exist, but the sum converges
+ |      slowly, the accuracy of the result may be rather low. For instance, for
+ |      ``zipf(4)``, accuracy for mean, variance in example is only 1e-5.
+ |      increasing `maxcount` and/or `chunksize` may improve the result, but may
+ |      also make zipf very slow.
+ |      
+ |      The function is not vectorized.
+ |  
+ |  isf(self, q, *args, **kwds)
+ |      Inverse survival function (inverse of `sf`) at q of the given RV.
+ |      
+ |      Parameters
+ |      ----------
+ |      q : array_like
+ |          Upper tail probability.
+ |      arg1, arg2, arg3,... : array_like
+ |          The shape parameter(s) for the distribution (see docstring of the
+ |          instance object for more information).
+ |      loc : array_like, optional
+ |          Location parameter (default=0).
+ |      
+ |      Returns
+ |      -------
+ |      k : ndarray or scalar
+ |          Quantile corresponding to the upper tail probability, q.
+ |  
+ |  logcdf(self, k, *args, **kwds)
+ |      Log of the cumulative distribution function at k of the given RV.
+ |      
+ |      Parameters
+ |      ----------
+ |      k : array_like, int
+ |          Quantiles.
+ |      arg1, arg2, arg3,... : array_like
+ |          The shape parameter(s) for the distribution (see docstring of the
+ |          instance object for more information).
+ |      loc : array_like, optional
+ |          Location parameter (default=0).
+ |      
+ |      Returns
+ |      -------
+ |      logcdf : array_like
+ |          Log of the cumulative distribution function evaluated at k.
+ |  
+ |  logpmf(self, k, *args, **kwds)
+ |      Log of the probability mass function at k of the given RV.
+ |      
+ |      Parameters
+ |      ----------
+ |      k : array_like
+ |          Quantiles.
+ |      arg1, arg2, arg3,... : array_like
+ |          The shape parameter(s) for the distribution (see docstring of the
+ |          instance object for more information).
+ |      loc : array_like, optional
+ |          Location parameter. Default is 0.
+ |      
+ |      Returns
+ |      -------
+ |      logpmf : array_like
+ |          Log of the probability mass function evaluated at k.
+ |  
+ |  logsf(self, k, *args, **kwds)
+ |      Log of the survival function of the given RV.
+ |      
+ |      Returns the log of the "survival function," defined as 1 - `cdf`,
+ |      evaluated at `k`.
+ |      
+ |      Parameters
+ |      ----------
+ |      k : array_like
+ |          Quantiles.
+ |      arg1, arg2, arg3,... : array_like
+ |          The shape parameter(s) for the distribution (see docstring of the
+ |          instance object for more information).
+ |      loc : array_like, optional
+ |          Location parameter (default=0).
+ |      
+ |      Returns
+ |      -------
+ |      logsf : ndarray
+ |          Log of the survival function evaluated at `k`.
+ |  
+ |  pmf(self, k, *args, **kwds)
+ |      Probability mass function at k of the given RV.
+ |      
+ |      Parameters
+ |      ----------
+ |      k : array_like
+ |          Quantiles.
+ |      arg1, arg2, arg3,... : array_like
+ |          The shape parameter(s) for the distribution (see docstring of the
+ |          instance object for more information)
+ |      loc : array_like, optional
+ |          Location parameter (default=0).
+ |      
+ |      Returns
+ |      -------
+ |      pmf : array_like
+ |          Probability mass function evaluated at k
+ |  
+ |  ppf(self, q, *args, **kwds)
+ |      Percent point function (inverse of `cdf`) at q of the given RV.
+ |      
+ |      Parameters
+ |      ----------
+ |      q : array_like
+ |          Lower tail probability.
+ |      arg1, arg2, arg3,... : array_like
+ |          The shape parameter(s) for the distribution (see docstring of the
+ |          instance object for more information).
+ |      loc : array_like, optional
+ |          Location parameter (default=0).
+ |      
+ |      Returns
+ |      -------
+ |      k : array_like
+ |          Quantile corresponding to the lower tail probability, q.
+ |  
+ |  rvs(self, *args, **kwargs)
+ |      Random variates of given type.
+ |      
+ |      Parameters
+ |      ----------
+ |      arg1, arg2, arg3,... : array_like
+ |          The shape parameter(s) for the distribution (see docstring of the
+ |          instance object for more information).
+ |      loc : array_like, optional
+ |          Location parameter (default=0).
+ |      size : int or tuple of ints, optional
+ |          Defining number of random variates (Default is 1).  Note that `size`
+ |          has to be given as keyword, not as positional argument.
+ |      random_state : {None, int, `~np.random.RandomState`, `~np.random.Generator`}, optional
+ |          This parameter defines the object to use for drawing random
+ |          variates.
+ |          If `random_state` is `None` the `~np.random.RandomState` singleton
+ |          is used.
+ |          If `random_state` is an int, a new ``RandomState`` instance is used,
+ |          seeded with random_state.
+ |          If `random_state` is already a ``RandomState`` or ``Generator``
+ |          instance, then that object is used.
+ |          Default is None.
+ |      
+ |      Returns
+ |      -------
+ |      rvs : ndarray or scalar
+ |          Random variates of given `size`.
+ |  
+ |  sf(self, k, *args, **kwds)
+ |      Survival function (1 - `cdf`) at k of the given RV.
+ |      
+ |      Parameters
+ |      ----------
+ |      k : array_like
+ |          Quantiles.
+ |      arg1, arg2, arg3,... : array_like
+ |          The shape parameter(s) for the distribution (see docstring of the
+ |          instance object for more information).
+ |      loc : array_like, optional
+ |          Location parameter (default=0).
+ |      
+ |      Returns
+ |      -------
+ |      sf : array_like
+ |          Survival function evaluated at k.
+ |  
+ |  ----------------------------------------------------------------------
+ |  Static methods inherited from scipy.stats._distn_infrastructure.rv_discrete:
+ |  
+ |  __new__(cls, a=0, b=inf, name=None, badvalue=None, moment_tol=1e-08, values=None, inc=1, longname=None, shapes=None, extradoc=None, seed=None)
+ |      Create and return a new object.  See help(type) for accurate signature.
+ |  
+ |  ----------------------------------------------------------------------
+ |  Methods inherited from scipy.stats._distn_infrastructure.rv_generic:
+ |  
+ |  __call__(self, *args, **kwds)
+ |      Freeze the distribution for the given arguments.
+ |      
+ |      Parameters
+ |      ----------
+ |      arg1, arg2, arg3,... : array_like
+ |          The shape parameter(s) for the distribution.  Should include all
+ |          the non-optional arguments, may include ``loc`` and ``scale``.
+ |      
+ |      Returns
+ |      -------
+ |      rv_frozen : rv_frozen instance
+ |          The frozen distribution.
+ |  
+ |  __setstate__(self, state)
+ |  
+ |  entropy(self, *args, **kwds)
+ |      Differential entropy of the RV.
+ |      
+ |      Parameters
+ |      ----------
+ |      arg1, arg2, arg3,... : array_like
+ |          The shape parameter(s) for the distribution (see docstring of the
+ |          instance object for more information).
+ |      loc : array_like, optional
+ |          Location parameter (default=0).
+ |      scale : array_like, optional  (continuous distributions only).
+ |          Scale parameter (default=1).
+ |      
+ |      Notes
+ |      -----
+ |      Entropy is defined base `e`:
+ |      
+ |      >>> drv = rv_discrete(values=((0, 1), (0.5, 0.5)))
+ |      >>> np.allclose(drv.entropy(), np.log(2.0))
+ |      True
+ |  
+ |  freeze(self, *args, **kwds)
+ |      Freeze the distribution for the given arguments.
+ |      
+ |      Parameters
+ |      ----------
+ |      arg1, arg2, arg3,... : array_like
+ |          The shape parameter(s) for the distribution.  Should include all
+ |          the non-optional arguments, may include ``loc`` and ``scale``.
+ |      
+ |      Returns
+ |      -------
+ |      rv_frozen : rv_frozen instance
+ |          The frozen distribution.
+ |  
+ |  interval(self, alpha, *args, **kwds)
+ |      Confidence interval with equal areas around the median.
+ |      
+ |      Parameters
+ |      ----------
+ |      alpha : array_like of float
+ |          Probability that an rv will be drawn from the returned range.
+ |          Each value should be in the range [0, 1].
+ |      arg1, arg2, ... : array_like
+ |          The shape parameter(s) for the distribution (see docstring of the
+ |          instance object for more information).
+ |      loc : array_like, optional
+ |          location parameter, Default is 0.
+ |      scale : array_like, optional
+ |          scale parameter, Default is 1.
+ |      
+ |      Returns
+ |      -------
+ |      a, b : ndarray of float
+ |          end-points of range that contain ``100 * alpha %`` of the rv's
+ |          possible values.
+ |  
+ |  mean(self, *args, **kwds)
+ |      Mean of the distribution.
+ |      
+ |      Parameters
+ |      ----------
+ |      arg1, arg2, arg3,... : array_like
+ |          The shape parameter(s) for the distribution (see docstring of the
+ |          instance object for more information)
+ |      loc : array_like, optional
+ |          location parameter (default=0)
+ |      scale : array_like, optional
+ |          scale parameter (default=1)
+ |      
+ |      Returns
+ |      -------
+ |      mean : float
+ |          the mean of the distribution
+ |  
+ |  median(self, *args, **kwds)
+ |      Median of the distribution.
+ |      
+ |      Parameters
+ |      ----------
+ |      arg1, arg2, arg3,... : array_like
+ |          The shape parameter(s) for the distribution (see docstring of the
+ |          instance object for more information)
+ |      loc : array_like, optional
+ |          Location parameter, Default is 0.
+ |      scale : array_like, optional
+ |          Scale parameter, Default is 1.
+ |      
+ |      Returns
+ |      -------
+ |      median : float
+ |          The median of the distribution.
+ |      
+ |      See Also
+ |      --------
+ |      rv_discrete.ppf
+ |          Inverse of the CDF
+ |  
+ |  moment(self, n, *args, **kwds)
+ |      n-th order non-central moment of distribution.
+ |      
+ |      Parameters
+ |      ----------
+ |      n : int, n >= 1
+ |          Order of moment.
+ |      arg1, arg2, arg3,... : float
+ |          The shape parameter(s) for the distribution (see docstring of the
+ |          instance object for more information).
+ |      loc : array_like, optional
+ |          location parameter (default=0)
+ |      scale : array_like, optional
+ |          scale parameter (default=1)
+ |  
+ |  stats(self, *args, **kwds)
+ |      Some statistics of the given RV.
+ |      
+ |      Parameters
+ |      ----------
+ |      arg1, arg2, arg3,... : array_like
+ |          The shape parameter(s) for the distribution (see docstring of the
+ |          instance object for more information)
+ |      loc : array_like, optional
+ |          location parameter (default=0)
+ |      scale : array_like, optional (continuous RVs only)
+ |          scale parameter (default=1)
+ |      moments : str, optional
+ |          composed of letters ['mvsk'] defining which moments to compute:
+ |          'm' = mean,
+ |          'v' = variance,
+ |          's' = (Fisher's) skew,
+ |          'k' = (Fisher's) kurtosis.
+ |          (default is 'mv')
+ |      
+ |      Returns
+ |      -------
+ |      stats : sequence
+ |          of requested moments.
+ |  
+ |  std(self, *args, **kwds)
+ |      Standard deviation of the distribution.
+ |      
+ |      Parameters
+ |      ----------
+ |      arg1, arg2, arg3,... : array_like
+ |          The shape parameter(s) for the distribution (see docstring of the
+ |          instance object for more information)
+ |      loc : array_like, optional
+ |          location parameter (default=0)
+ |      scale : array_like, optional
+ |          scale parameter (default=1)
+ |      
+ |      Returns
+ |      -------
+ |      std : float
+ |          standard deviation of the distribution
+ |  
+ |  support(self, *args, **kwargs)
+ |      Return the support of the distribution.
+ |      
+ |      Parameters
+ |      ----------
+ |      arg1, arg2, ... : array_like
+ |          The shape parameter(s) for the distribution (see docstring of the
+ |          instance object for more information).
+ |      loc : array_like, optional
+ |          location parameter, Default is 0.
+ |      scale : array_like, optional
+ |          scale parameter, Default is 1.
+ |      Returns
+ |      -------
+ |      a, b : float
+ |          end-points of the distribution's support.
+ |  
+ |  var(self, *args, **kwds)
+ |      Variance of the distribution.
+ |      
+ |      Parameters
+ |      ----------
+ |      arg1, arg2, arg3,... : array_like
+ |          The shape parameter(s) for the distribution (see docstring of the
+ |          instance object for more information)
+ |      loc : array_like, optional
+ |          location parameter (default=0)
+ |      scale : array_like, optional
+ |          scale parameter (default=1)
+ |      
+ |      Returns
+ |      -------
+ |      var : float
+ |          the variance of the distribution
+ |  
+ |  ----------------------------------------------------------------------
+ |  Data descriptors inherited from scipy.stats._distn_infrastructure.rv_generic:
+ |  
+ |  __dict__
+ |      dictionary for instance variables (if defined)
+ |  
+ |  __weakref__
+ |      list of weak references to the object (if defined)
+ |  
+ |  random_state
+ |      Get or set the RandomState object for generating random variates.
+ |      
+ |      This can be either None, int, a RandomState instance, or a
+ |      np.random.Generator instance.
+ |      
+ |      If None (or np.random), use the RandomState singleton used by np.random.
+ |      If already a RandomState or Generator instance, use it.
+ |      If an int, use a new RandomState instance seeded with seed.
+

@@ -1,0 +1,6 @@
+Help on function search in re:
+
+re.search = search(pattern, string, flags=0)
+    Scan through string looking for a match to the pattern, returning
+    a Match object, or None if no match was found.
+

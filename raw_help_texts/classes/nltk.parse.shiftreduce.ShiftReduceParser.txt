@@ -1,0 +1,106 @@
+Help on class ShiftReduceParser in nltk.parse.shiftreduce:
+
+nltk.parse.shiftreduce.ShiftReduceParser = class ShiftReduceParser(nltk.parse.api.ParserI)
+ |  nltk.parse.shiftreduce.ShiftReduceParser(grammar, trace=0)
+ |  
+ |  A simple bottom-up CFG parser that uses two operations, "shift"
+ |  and "reduce", to find a single parse for a text.
+ |  
+ |  ``ShiftReduceParser`` maintains a stack, which records the
+ |  structure of a portion of the text.  This stack is a list of
+ |  strings and Trees that collectively cover a portion of
+ |  the text.  For example, while parsing the sentence "the dog saw
+ |  the man" with a typical grammar, ``ShiftReduceParser`` will produce
+ |  the following stack, which covers "the dog saw"::
+ |  
+ |     [(NP: (Det: 'the') (N: 'dog')), (V: 'saw')]
+ |  
+ |  ``ShiftReduceParser`` attempts to extend the stack to cover the
+ |  entire text, and to combine the stack elements into a single tree,
+ |  producing a complete parse for the sentence.
+ |  
+ |  Initially, the stack is empty.  It is extended to cover the text,
+ |  from left to right, by repeatedly applying two operations:
+ |  
+ |    - "shift" moves a token from the beginning of the text to the
+ |      end of the stack.
+ |    - "reduce" uses a CFG production to combine the rightmost stack
+ |      elements into a single Tree.
+ |  
+ |  Often, more than one operation can be performed on a given stack.
+ |  In this case, ``ShiftReduceParser`` uses the following heuristics
+ |  to decide which operation to perform:
+ |  
+ |    - Only shift if no reductions are available.
+ |    - If multiple reductions are available, then apply the reduction
+ |      whose CFG production is listed earliest in the grammar.
+ |  
+ |  Note that these heuristics are not guaranteed to choose an
+ |  operation that leads to a parse of the text.  Also, if multiple
+ |  parses exists, ``ShiftReduceParser`` will return at most one of
+ |  them.
+ |  
+ |  :see: ``nltk.grammar``
+ |  
+ |  Method resolution order:
+ |      ShiftReduceParser
+ |      nltk.parse.api.ParserI
+ |      builtins.object
+ |  
+ |  Methods defined here:
+ |  
+ |  __init__(self, grammar, trace=0)
+ |      Create a new ``ShiftReduceParser``, that uses ``grammar`` to
+ |      parse texts.
+ |      
+ |      :type grammar: Grammar
+ |      :param grammar: The grammar used to parse texts.
+ |      :type trace: int
+ |      :param trace: The level of tracing that should be used when
+ |          parsing a text.  ``0`` will generate no tracing output;
+ |          and higher numbers will produce more verbose tracing
+ |          output.
+ |  
+ |  grammar(self)
+ |      :return: The grammar used by this parser.
+ |  
+ |  parse(self, tokens)
+ |      :return: An iterator that generates parse trees for the sentence.
+ |      When possible this list is sorted from most likely to least likely.
+ |      
+ |      :param sent: The sentence to be parsed
+ |      :type sent: list(str)
+ |      :rtype: iter(Tree)
+ |  
+ |  trace(self, trace=2)
+ |      Set the level of tracing output that should be generated when
+ |      parsing a text.
+ |      
+ |      :type trace: int
+ |      :param trace: The trace level.  A trace level of ``0`` will
+ |          generate no tracing output; and higher trace levels will
+ |          produce more verbose tracing output.
+ |      :rtype: None
+ |  
+ |  ----------------------------------------------------------------------
+ |  Methods inherited from nltk.parse.api.ParserI:
+ |  
+ |  parse_all(self, sent, *args, **kwargs)
+ |      :rtype: list(Tree)
+ |  
+ |  parse_one(self, sent, *args, **kwargs)
+ |      :rtype: Tree or None
+ |  
+ |  parse_sents(self, sents, *args, **kwargs)
+ |      Apply ``self.parse()`` to each element of ``sents``.
+ |      :rtype: iter(iter(Tree))
+ |  
+ |  ----------------------------------------------------------------------
+ |  Data descriptors inherited from nltk.parse.api.ParserI:
+ |  
+ |  __dict__
+ |      dictionary for instance variables (if defined)
+ |  
+ |  __weakref__
+ |      list of weak references to the object (if defined)
+

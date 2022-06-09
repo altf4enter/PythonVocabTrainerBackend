@@ -1,0 +1,16 @@
+Help on function word_tokenize in nltk:
+
+nltk.word_tokenize = word_tokenize(text, language='english', preserve_line=False)
+    Return a tokenized copy of *text*,
+    using NLTK's recommended word tokenizer
+    (currently an improved :class:`.TreebankWordTokenizer`
+    along with :class:`.PunktSentenceTokenizer`
+    for the specified language).
+    
+    :param text: text to split into words
+    :type text: str
+    :param language: the model name in the Punkt corpus
+    :type language: str
+    :param preserve_line: An option to keep the preserve the sentence and not sentence tokenize it.
+    :type preserve_line: bool
+

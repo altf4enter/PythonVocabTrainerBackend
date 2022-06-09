@@ -1,0 +1,5 @@
+Help on function find_malt_model in nltk.parse.malt:
+
+nltk.parse.malt.find_malt_model = find_malt_model(model_filename)
+    A module to find pre-trained MaltParser model.
+

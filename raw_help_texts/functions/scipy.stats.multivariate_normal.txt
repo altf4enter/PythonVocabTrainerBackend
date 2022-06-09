@@ -1,0 +1,301 @@
+Help on multivariate_normal_gen in scipy.stats object:
+
+scipy.stats.multivariate_normal = class multivariate_normal_gen(multi_rv_generic)
+ |  scipy.stats.multivariate_normal(seed=None)
+ |  
+ |  A multivariate normal random variable.
+ |  
+ |  The `mean` keyword specifies the mean. The `cov` keyword specifies the
+ |  covariance matrix.
+ |  
+ |  Methods
+ |  -------
+ |  ``pdf(x, mean=None, cov=1, allow_singular=False)``
+ |      Probability density function.
+ |  ``logpdf(x, mean=None, cov=1, allow_singular=False)``
+ |      Log of the probability density function.
+ |  ``cdf(x, mean=None, cov=1, allow_singular=False, maxpts=1000000*dim, abseps=1e-5, releps=1e-5)``
+ |      Cumulative distribution function.
+ |  ``logcdf(x, mean=None, cov=1, allow_singular=False, maxpts=1000000*dim, abseps=1e-5, releps=1e-5)``
+ |      Log of the cumulative distribution function.
+ |  ``rvs(mean=None, cov=1, size=1, random_state=None)``
+ |      Draw random samples from a multivariate normal distribution.
+ |  ``entropy()``
+ |      Compute the differential entropy of the multivariate normal.
+ |  
+ |  Parameters
+ |  ----------
+ |  x : array_like
+ |      Quantiles, with the last axis of `x` denoting the components.
+ |  %(_mvn_doc_default_callparams)s
+ |  %(_doc_random_state)s
+ |  
+ |  Alternatively, the object may be called (as a function) to fix the mean
+ |  and covariance parameters, returning a "frozen" multivariate normal
+ |  random variable:
+ |  
+ |  rv = multivariate_normal(mean=None, cov=1, allow_singular=False)
+ |      - Frozen object with the same methods but holding the given
+ |        mean and covariance fixed.
+ |  
+ |  Notes
+ |  -----
+ |  %(_mvn_doc_callparams_note)s
+ |  
+ |  The covariance matrix `cov` must be a (symmetric) positive
+ |  semi-definite matrix. The determinant and inverse of `cov` are computed
+ |  as the pseudo-determinant and pseudo-inverse, respectively, so
+ |  that `cov` does not need to have full rank.
+ |  
+ |  The probability density function for `multivariate_normal` is
+ |  
+ |  .. math::
+ |  
+ |      f(x) = \frac{1}{\sqrt{(2 \pi)^k \det \Sigma}}
+ |             \exp\left( -\frac{1}{2} (x - \mu)^T \Sigma^{-1} (x - \mu) \right),
+ |  
+ |  where :math:`\mu` is the mean, :math:`\Sigma` the covariance matrix,
+ |  and :math:`k` is the dimension of the space where :math:`x` takes values.
+ |  
+ |  .. versionadded:: 0.14.0
+ |  
+ |  Examples
+ |  --------
+ |  >>> import matplotlib.pyplot as plt
+ |  >>> from scipy.stats import multivariate_normal
+ |  
+ |  >>> x = np.linspace(0, 5, 10, endpoint=False)
+ |  >>> y = multivariate_normal.pdf(x, mean=2.5, cov=0.5); y
+ |  array([ 0.00108914,  0.01033349,  0.05946514,  0.20755375,  0.43939129,
+ |          0.56418958,  0.43939129,  0.20755375,  0.05946514,  0.01033349])
+ |  >>> fig1 = plt.figure()
+ |  >>> ax = fig1.add_subplot(111)
+ |  >>> ax.plot(x, y)
+ |  
+ |  The input quantiles can be any shape of array, as long as the last
+ |  axis labels the components.  This allows us for instance to
+ |  display the frozen pdf for a non-isotropic random variable in 2D as
+ |  follows:
+ |  
+ |  >>> x, y = np.mgrid[-1:1:.01, -1:1:.01]
+ |  >>> pos = np.dstack((x, y))
+ |  >>> rv = multivariate_normal([0.5, -0.2], [[2.0, 0.3], [0.3, 0.5]])
+ |  >>> fig2 = plt.figure()
+ |  >>> ax2 = fig2.add_subplot(111)
+ |  >>> ax2.contourf(x, y, rv.pdf(pos))
+ |  
+ |  Method resolution order:
+ |      multivariate_normal_gen
+ |      multi_rv_generic
+ |      builtins.object
+ |  
+ |  Methods defined here:
+ |  
+ |  __call__(self, mean=None, cov=1, allow_singular=False, seed=None)
+ |      Create a frozen multivariate normal distribution.
+ |      
+ |      See `multivariate_normal_frozen` for more information.
+ |  
+ |  __init__(self, seed=None)
+ |      Initialize self.  See help(type(self)) for accurate signature.
+ |  
+ |  cdf(self, x, mean=None, cov=1, allow_singular=False, maxpts=None, abseps=1e-05, releps=1e-05)
+ |      Multivariate normal cumulative distribution function.
+ |      
+ |      Parameters
+ |      ----------
+ |      x : array_like
+ |          Quantiles, with the last axis of `x` denoting the components.
+ |      mean : array_like, optional
+ |          Mean of the distribution (default zero)
+ |      cov : array_like, optional
+ |          Covariance matrix of the distribution (default one)
+ |      allow_singular : bool, optional
+ |          Whether to allow a singular covariance matrix.  (Default: False)
+ |      maxpts: integer, optional
+ |          The maximum number of points to use for integration
+ |          (default `1000000*dim`)
+ |      abseps: float, optional
+ |          Absolute error tolerance (default 1e-5)
+ |      releps: float, optional
+ |          Relative error tolerance (default 1e-5)
+ |      
+ |      Returns
+ |      -------
+ |      cdf : ndarray or scalar
+ |          Cumulative distribution function evaluated at `x`
+ |      
+ |      Notes
+ |      -----
+ |      Setting the parameter `mean` to `None` is equivalent to having `mean`
+ |          be the zero-vector. The parameter `cov` can be a scalar, in which case
+ |          the covariance matrix is the identity times that value, a vector of
+ |          diagonal entries for the covariance matrix, or a two-dimensional
+ |          array_like.
+ |          
+ |      
+ |      .. versionadded:: 1.0.0
+ |  
+ |  entropy(self, mean=None, cov=1)
+ |      Compute the differential entropy of the multivariate normal.
+ |      
+ |      Parameters
+ |      ----------
+ |      %(_mvn_doc_default_callparams)s
+ |      
+ |      Returns
+ |      -------
+ |      h : scalar
+ |          Entropy of the multivariate normal distribution
+ |      
+ |      Notes
+ |      -----
+ |      %(_mvn_doc_callparams_note)s
+ |  
+ |  logcdf(self, x, mean=None, cov=1, allow_singular=False, maxpts=None, abseps=1e-05, releps=1e-05)
+ |      Log of the multivariate normal cumulative distribution function.
+ |      
+ |      Parameters
+ |      ----------
+ |      x : array_like
+ |          Quantiles, with the last axis of `x` denoting the components.
+ |      mean : array_like, optional
+ |          Mean of the distribution (default zero)
+ |      cov : array_like, optional
+ |          Covariance matrix of the distribution (default one)
+ |      allow_singular : bool, optional
+ |          Whether to allow a singular covariance matrix.  (Default: False)
+ |      maxpts: integer, optional
+ |          The maximum number of points to use for integration
+ |          (default `1000000*dim`)
+ |      abseps: float, optional
+ |          Absolute error tolerance (default 1e-5)
+ |      releps: float, optional
+ |          Relative error tolerance (default 1e-5)
+ |      
+ |      Returns
+ |      -------
+ |      cdf : ndarray or scalar
+ |          Log of the cumulative distribution function evaluated at `x`
+ |      
+ |      Notes
+ |      -----
+ |      Setting the parameter `mean` to `None` is equivalent to having `mean`
+ |          be the zero-vector. The parameter `cov` can be a scalar, in which case
+ |          the covariance matrix is the identity times that value, a vector of
+ |          diagonal entries for the covariance matrix, or a two-dimensional
+ |          array_like.
+ |          
+ |      
+ |      .. versionadded:: 1.0.0
+ |  
+ |  logpdf(self, x, mean=None, cov=1, allow_singular=False)
+ |      Log of the multivariate normal probability density function.
+ |      
+ |      Parameters
+ |      ----------
+ |      x : array_like
+ |          Quantiles, with the last axis of `x` denoting the components.
+ |      mean : array_like, optional
+ |          Mean of the distribution (default zero)
+ |      cov : array_like, optional
+ |          Covariance matrix of the distribution (default one)
+ |      allow_singular : bool, optional
+ |          Whether to allow a singular covariance matrix.  (Default: False)
+ |      
+ |      Returns
+ |      -------
+ |      pdf : ndarray or scalar
+ |          Log of the probability density function evaluated at `x`
+ |      
+ |      Notes
+ |      -----
+ |      Setting the parameter `mean` to `None` is equivalent to having `mean`
+ |          be the zero-vector. The parameter `cov` can be a scalar, in which case
+ |          the covariance matrix is the identity times that value, a vector of
+ |          diagonal entries for the covariance matrix, or a two-dimensional
+ |          array_like.
+ |  
+ |  pdf(self, x, mean=None, cov=1, allow_singular=False)
+ |      Multivariate normal probability density function.
+ |      
+ |      Parameters
+ |      ----------
+ |      x : array_like
+ |          Quantiles, with the last axis of `x` denoting the components.
+ |      mean : array_like, optional
+ |          Mean of the distribution (default zero)
+ |      cov : array_like, optional
+ |          Covariance matrix of the distribution (default one)
+ |      allow_singular : bool, optional
+ |          Whether to allow a singular covariance matrix.  (Default: False)
+ |      
+ |      Returns
+ |      -------
+ |      pdf : ndarray or scalar
+ |          Probability density function evaluated at `x`
+ |      
+ |      Notes
+ |      -----
+ |      Setting the parameter `mean` to `None` is equivalent to having `mean`
+ |          be the zero-vector. The parameter `cov` can be a scalar, in which case
+ |          the covariance matrix is the identity times that value, a vector of
+ |          diagonal entries for the covariance matrix, or a two-dimensional
+ |          array_like.
+ |  
+ |  rvs(self, mean=None, cov=1, size=1, random_state=None)
+ |      Draw random samples from a multivariate normal distribution.
+ |      
+ |      Parameters
+ |      ----------
+ |      mean : array_like, optional
+ |          Mean of the distribution (default zero)
+ |      cov : array_like, optional
+ |          Covariance matrix of the distribution (default one)
+ |      allow_singular : bool, optional
+ |          Whether to allow a singular covariance matrix.  (Default: False)
+ |      size : integer, optional
+ |          Number of samples to draw (default 1).
+ |      random_state : {None, int, np.random.RandomState, np.random.Generator}, optional
+ |          Used for drawing random variates.
+ |          If `seed` is `None` the `~np.random.RandomState` singleton is used.
+ |          If `seed` is an int, a new ``RandomState`` instance is used, seeded
+ |          with seed.
+ |          If `seed` is already a ``RandomState`` or ``Generator`` instance,
+ |          then that object is used.
+ |          Default is None.
+ |      
+ |      Returns
+ |      -------
+ |      rvs : ndarray or scalar
+ |          Random variates of size (`size`, `N`), where `N` is the
+ |          dimension of the random variable.
+ |      
+ |      Notes
+ |      -----
+ |      Setting the parameter `mean` to `None` is equivalent to having `mean`
+ |          be the zero-vector. The parameter `cov` can be a scalar, in which case
+ |          the covariance matrix is the identity times that value, a vector of
+ |          diagonal entries for the covariance matrix, or a two-dimensional
+ |          array_like.
+ |  
+ |  ----------------------------------------------------------------------
+ |  Data descriptors inherited from multi_rv_generic:
+ |  
+ |  __dict__
+ |      dictionary for instance variables (if defined)
+ |  
+ |  __weakref__
+ |      list of weak references to the object (if defined)
+ |  
+ |  random_state
+ |      Get or set the RandomState object for generating random variates.
+ |      
+ |      This can be either None, int, a RandomState instance, or a
+ |      np.random.Generator instance.
+ |      
+ |      If None (or np.random), use the RandomState singleton used by
+ |      np.random.
+ |      If already a RandomState or Generator instance, use it.
+ |      If an int, use a new RandomState instance seeded with seed.
+

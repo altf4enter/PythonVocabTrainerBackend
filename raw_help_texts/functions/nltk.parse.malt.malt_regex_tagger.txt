@@ -1,0 +1,4 @@
+Help on function malt_regex_tagger in nltk.parse.malt:
+
+malt_regex_tagger()
+

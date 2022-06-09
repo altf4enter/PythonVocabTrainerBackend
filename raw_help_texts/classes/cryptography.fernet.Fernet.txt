@@ -1,0 +1,34 @@
+Help on class Fernet in cryptography.fernet:
+
+cryptography.fernet.Fernet = class Fernet(builtins.object)
+ |  cryptography.fernet.Fernet(key: bytes, backend=None)
+ |  
+ |  Methods defined here:
+ |  
+ |  __init__(self, key: bytes, backend=None)
+ |      Initialize self.  See help(type(self)) for accurate signature.
+ |  
+ |  decrypt(self, token: bytes, ttl: Union[int, NoneType] = None) -> bytes
+ |  
+ |  decrypt_at_time(self, token: bytes, ttl: int, current_time: int) -> bytes
+ |  
+ |  encrypt(self, data: bytes) -> bytes
+ |  
+ |  encrypt_at_time(self, data: bytes, current_time: int) -> bytes
+ |  
+ |  extract_timestamp(self, token: bytes) -> int
+ |  
+ |  ----------------------------------------------------------------------
+ |  Class methods defined here:
+ |  
+ |  generate_key() -> bytes from builtins.type
+ |  
+ |  ----------------------------------------------------------------------
+ |  Data descriptors defined here:
+ |  
+ |  __dict__
+ |      dictionary for instance variables (if defined)
+ |  
+ |  __weakref__
+ |      list of weak references to the object (if defined)
+

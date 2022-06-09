@@ -1,0 +1,353 @@
+Help on class Node in anytree:
+
+class Node(anytree.node.nodemixin.NodeMixin, builtins.object)
+ |  anytree.Node(name, parent=None, children=None, **kwargs)
+ |  
+ |  Method resolution order:
+ |      Node
+ |      anytree.node.nodemixin.NodeMixin
+ |      builtins.object
+ |  
+ |  Methods defined here:
+ |  
+ |  __init__(self, name, parent=None, children=None, **kwargs)
+ |      A simple tree node with a `name` and any `kwargs`.
+ |      
+ |      Args:
+ |          name: A name or any other object this node can reference to as idendifier.
+ |      
+ |      Keyword Args:
+ |          parent: Reference to parent node.
+ |          children: Iterable with child nodes.
+ |          *: Any other given attribute is just stored as object attribute.
+ |      
+ |      Other than :any:`AnyNode` this class has at least the `name` attribute,
+ |      to distinguish between different instances.
+ |      
+ |      The `parent` attribute refers the parent node:
+ |      
+ |      >>> from anytree import Node, RenderTree
+ |      >>> root = Node("root")
+ |      >>> s0 = Node("sub0", parent=root)
+ |      >>> s0b = Node("sub0B", parent=s0, foo=4, bar=109)
+ |      >>> s0a = Node("sub0A", parent=s0)
+ |      >>> s1 = Node("sub1", parent=root)
+ |      >>> s1a = Node("sub1A", parent=s1)
+ |      >>> s1b = Node("sub1B", parent=s1, bar=8)
+ |      >>> s1c = Node("sub1C", parent=s1)
+ |      >>> s1ca = Node("sub1Ca", parent=s1c)
+ |      
+ |      >>> print(RenderTree(root))
+ |      Node('/root')
+ |      ├── Node('/root/sub0')
+ |      │   ├── Node('/root/sub0/sub0B', bar=109, foo=4)
+ |      │   └── Node('/root/sub0/sub0A')
+ |      └── Node('/root/sub1')
+ |          ├── Node('/root/sub1/sub1A')
+ |          ├── Node('/root/sub1/sub1B', bar=8)
+ |          └── Node('/root/sub1/sub1C')
+ |              └── Node('/root/sub1/sub1C/sub1Ca')
+ |      
+ |      The same tree can be constructed by using the `children` attribute:
+ |      
+ |      >>> root = Node("root", children=[
+ |      ...     Node("sub0", children=[
+ |      ...         Node("sub0B", bar=109, foo=4),
+ |      ...         Node("sub0A", children=None),
+ |      ...     ]),
+ |      ...     Node("sub1", children=[
+ |      ...         Node("sub1A"),
+ |      ...         Node("sub1B", bar=8, children=[]),
+ |      ...         Node("sub1C", children=[
+ |      ...             Node("sub1Ca"),
+ |      ...         ]),
+ |      ...     ]),
+ |      ... ])
+ |      
+ |      >>> print(RenderTree(root))
+ |      Node('/root')
+ |      ├── Node('/root/sub0')
+ |      │   ├── Node('/root/sub0/sub0B', bar=109, foo=4)
+ |      │   └── Node('/root/sub0/sub0A')
+ |      └── Node('/root/sub1')
+ |          ├── Node('/root/sub1/sub1A')
+ |          ├── Node('/root/sub1/sub1B', bar=8)
+ |          └── Node('/root/sub1/sub1C')
+ |              └── Node('/root/sub1/sub1C/sub1Ca')
+ |  
+ |  __repr__(self)
+ |      Return repr(self).
+ |  
+ |  ----------------------------------------------------------------------
+ |  Methods inherited from anytree.node.nodemixin.NodeMixin:
+ |  
+ |  iter_path_reverse(self)
+ |      Iterate up the tree from the current node.
+ |      
+ |      >>> from anytree import Node
+ |      >>> udo = Node("Udo")
+ |      >>> marc = Node("Marc", parent=udo)
+ |      >>> lian = Node("Lian", parent=marc)
+ |      >>> for node in udo.iter_path_reverse():
+ |      ...     print(node)
+ |      Node('/Udo')
+ |      >>> for node in marc.iter_path_reverse():
+ |      ...     print(node)
+ |      Node('/Udo/Marc')
+ |      Node('/Udo')
+ |      >>> for node in lian.iter_path_reverse():
+ |      ...     print(node)
+ |      Node('/Udo/Marc/Lian')
+ |      Node('/Udo/Marc')
+ |      Node('/Udo')
+ |  
+ |  ----------------------------------------------------------------------
+ |  Readonly properties inherited from anytree.node.nodemixin.NodeMixin:
+ |  
+ |  ancestors
+ |      All parent nodes and their parent nodes.
+ |      
+ |      >>> from anytree import Node
+ |      >>> udo = Node("Udo")
+ |      >>> marc = Node("Marc", parent=udo)
+ |      >>> lian = Node("Lian", parent=marc)
+ |      >>> udo.ancestors
+ |      ()
+ |      >>> marc.ancestors
+ |      (Node('/Udo'),)
+ |      >>> lian.ancestors
+ |      (Node('/Udo'), Node('/Udo/Marc'))
+ |  
+ |  anchestors
+ |      All parent nodes and their parent nodes - see :any:`ancestors`.
+ |      
+ |      The attribute `anchestors` is just a typo of `ancestors`. Please use `ancestors`.
+ |      This attribute will be removed in the 3.0.0 release.
+ |  
+ |  depth
+ |      Number of edges to the root `Node`.
+ |      
+ |      >>> from anytree import Node
+ |      >>> udo = Node("Udo")
+ |      >>> marc = Node("Marc", parent=udo)
+ |      >>> lian = Node("Lian", parent=marc)
+ |      >>> udo.depth
+ |      0
+ |      >>> marc.depth
+ |      1
+ |      >>> lian.depth
+ |      2
+ |  
+ |  descendants
+ |      All child nodes and all their child nodes.
+ |      
+ |      >>> from anytree import Node
+ |      >>> udo = Node("Udo")
+ |      >>> marc = Node("Marc", parent=udo)
+ |      >>> lian = Node("Lian", parent=marc)
+ |      >>> loui = Node("Loui", parent=marc)
+ |      >>> soe = Node("Soe", parent=lian)
+ |      >>> udo.descendants
+ |      (Node('/Udo/Marc'), Node('/Udo/Marc/Lian'), Node('/Udo/Marc/Lian/Soe'), Node('/Udo/Marc/Loui'))
+ |      >>> marc.descendants
+ |      (Node('/Udo/Marc/Lian'), Node('/Udo/Marc/Lian/Soe'), Node('/Udo/Marc/Loui'))
+ |      >>> lian.descendants
+ |      (Node('/Udo/Marc/Lian/Soe'),)
+ |  
+ |  height
+ |      Number of edges on the longest path to a leaf `Node`.
+ |      
+ |      >>> from anytree import Node
+ |      >>> udo = Node("Udo")
+ |      >>> marc = Node("Marc", parent=udo)
+ |      >>> lian = Node("Lian", parent=marc)
+ |      >>> udo.height
+ |      2
+ |      >>> marc.height
+ |      1
+ |      >>> lian.height
+ |      0
+ |  
+ |  is_leaf
+ |      `Node` has no children (External Node).
+ |      
+ |      >>> from anytree import Node
+ |      >>> udo = Node("Udo")
+ |      >>> marc = Node("Marc", parent=udo)
+ |      >>> lian = Node("Lian", parent=marc)
+ |      >>> udo.is_leaf
+ |      False
+ |      >>> marc.is_leaf
+ |      False
+ |      >>> lian.is_leaf
+ |      True
+ |  
+ |  is_root
+ |      `Node` is tree root.
+ |      
+ |      >>> from anytree import Node
+ |      >>> udo = Node("Udo")
+ |      >>> marc = Node("Marc", parent=udo)
+ |      >>> lian = Node("Lian", parent=marc)
+ |      >>> udo.is_root
+ |      True
+ |      >>> marc.is_root
+ |      False
+ |      >>> lian.is_root
+ |      False
+ |  
+ |  leaves
+ |      Tuple of all leaf nodes.
+ |      
+ |      >>> from anytree import Node
+ |      >>> udo = Node("Udo")
+ |      >>> marc = Node("Marc", parent=udo)
+ |      >>> lian = Node("Lian", parent=marc)
+ |      >>> loui = Node("Loui", parent=marc)
+ |      >>> lazy = Node("Lazy", parent=marc)
+ |      >>> udo.leaves
+ |      (Node('/Udo/Marc/Lian'), Node('/Udo/Marc/Loui'), Node('/Udo/Marc/Lazy'))
+ |      >>> marc.leaves
+ |      (Node('/Udo/Marc/Lian'), Node('/Udo/Marc/Loui'), Node('/Udo/Marc/Lazy'))
+ |  
+ |  path
+ |      Path of this `Node`.
+ |      
+ |      >>> from anytree import Node
+ |      >>> udo = Node("Udo")
+ |      >>> marc = Node("Marc", parent=udo)
+ |      >>> lian = Node("Lian", parent=marc)
+ |      >>> udo.path
+ |      (Node('/Udo'),)
+ |      >>> marc.path
+ |      (Node('/Udo'), Node('/Udo/Marc'))
+ |      >>> lian.path
+ |      (Node('/Udo'), Node('/Udo/Marc'), Node('/Udo/Marc/Lian'))
+ |  
+ |  root
+ |      Tree Root Node.
+ |      
+ |      >>> from anytree import Node
+ |      >>> udo = Node("Udo")
+ |      >>> marc = Node("Marc", parent=udo)
+ |      >>> lian = Node("Lian", parent=marc)
+ |      >>> udo.root
+ |      Node('/Udo')
+ |      >>> marc.root
+ |      Node('/Udo')
+ |      >>> lian.root
+ |      Node('/Udo')
+ |  
+ |  siblings
+ |      Tuple of nodes with the same parent.
+ |      
+ |      >>> from anytree import Node
+ |      >>> udo = Node("Udo")
+ |      >>> marc = Node("Marc", parent=udo)
+ |      >>> lian = Node("Lian", parent=marc)
+ |      >>> loui = Node("Loui", parent=marc)
+ |      >>> lazy = Node("Lazy", parent=marc)
+ |      >>> udo.siblings
+ |      ()
+ |      >>> marc.siblings
+ |      ()
+ |      >>> lian.siblings
+ |      (Node('/Udo/Marc/Loui'), Node('/Udo/Marc/Lazy'))
+ |      >>> loui.siblings
+ |      (Node('/Udo/Marc/Lian'), Node('/Udo/Marc/Lazy'))
+ |  
+ |  ----------------------------------------------------------------------
+ |  Data descriptors inherited from anytree.node.nodemixin.NodeMixin:
+ |  
+ |  __dict__
+ |      dictionary for instance variables (if defined)
+ |  
+ |  __weakref__
+ |      list of weak references to the object (if defined)
+ |  
+ |  children
+ |      All child nodes.
+ |      
+ |      >>> from anytree import Node
+ |      >>> n = Node("n")
+ |      >>> a = Node("a", parent=n)
+ |      >>> b = Node("b", parent=n)
+ |      >>> c = Node("c", parent=n)
+ |      >>> n.children
+ |      (Node('/n/a'), Node('/n/b'), Node('/n/c'))
+ |      
+ |      Modifying the children attribute modifies the tree.
+ |      
+ |      **Detach**
+ |      
+ |      The children attribute can be updated by setting to an iterable.
+ |      
+ |      >>> n.children = [a, b]
+ |      >>> n.children
+ |      (Node('/n/a'), Node('/n/b'))
+ |      
+ |      Node `c` is removed from the tree.
+ |      In case of an existing reference, the node `c` does not vanish and is the root of its own tree.
+ |      
+ |      >>> c
+ |      Node('/c')
+ |      
+ |      **Attach**
+ |      
+ |      >>> d = Node("d")
+ |      >>> d
+ |      Node('/d')
+ |      >>> n.children = [a, b, d]
+ |      >>> n.children
+ |      (Node('/n/a'), Node('/n/b'), Node('/n/d'))
+ |      >>> d
+ |      Node('/n/d')
+ |      
+ |      **Duplicate**
+ |      
+ |      A node can just be the children once. Duplicates cause a :any:`TreeError`:
+ |      
+ |      >>> n.children = [a, b, d, a]
+ |      Traceback (most recent call last):
+ |          ...
+ |      anytree.node.exceptions.TreeError: Cannot add node Node('/n/a') multiple times as child.
+ |  
+ |  parent
+ |      Parent Node.
+ |      
+ |      On set, the node is detached from any previous parent node and attached
+ |      to the new node.
+ |      
+ |      >>> from anytree import Node, RenderTree
+ |      >>> udo = Node("Udo")
+ |      >>> marc = Node("Marc")
+ |      >>> lian = Node("Lian", parent=marc)
+ |      >>> print(RenderTree(udo))
+ |      Node('/Udo')
+ |      >>> print(RenderTree(marc))
+ |      Node('/Marc')
+ |      └── Node('/Marc/Lian')
+ |      
+ |      **Attach**
+ |      
+ |      >>> marc.parent = udo
+ |      >>> print(RenderTree(udo))
+ |      Node('/Udo')
+ |      └── Node('/Udo/Marc')
+ |          └── Node('/Udo/Marc/Lian')
+ |      
+ |      **Detach**
+ |      
+ |      To make a node to a root node, just set this attribute to `None`.
+ |      
+ |      >>> marc.is_root
+ |      False
+ |      >>> marc.parent = None
+ |      >>> marc.is_root
+ |      True
+ |  
+ |  ----------------------------------------------------------------------
+ |  Data and other attributes inherited from anytree.node.nodemixin.NodeMixin:
+ |  
+ |  separator = '/'
+

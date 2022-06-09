@@ -1,0 +1,70 @@
+Help on class Match in re:
+
+re.Match = class Match(builtins.object)
+ |  The result of re.match() and re.search().
+ |  Match objects always have a boolean value of True.
+ |  
+ |  Methods defined here:
+ |  
+ |  __copy__(self, /)
+ |  
+ |  __deepcopy__(self, memo, /)
+ |  
+ |  __getitem__(self, key, /)
+ |      Return self[key].
+ |  
+ |  __repr__(self, /)
+ |      Return repr(self).
+ |  
+ |  end(self, group=0, /)
+ |      Return index of the end of the substring matched by group.
+ |  
+ |  expand(self, /, template)
+ |      Return the string obtained by doing backslash substitution on the string template, as done by the sub() method.
+ |  
+ |  group(...)
+ |      group([group1, ...]) -> str or tuple.
+ |      Return subgroup(s) of the match by indices or names.
+ |      For 0 returns the entire match.
+ |  
+ |  groupdict(self, /, default=None)
+ |      Return a dictionary containing all the named subgroups of the match, keyed by the subgroup name.
+ |      
+ |      default
+ |        Is used for groups that did not participate in the match.
+ |  
+ |  groups(self, /, default=None)
+ |      Return a tuple containing all the subgroups of the match, from 1.
+ |      
+ |      default
+ |        Is used for groups that did not participate in the match.
+ |  
+ |  span(self, group=0, /)
+ |      For match object m, return the 2-tuple (m.start(group), m.end(group)).
+ |  
+ |  start(self, group=0, /)
+ |      Return index of the start of the substring matched by group.
+ |  
+ |  ----------------------------------------------------------------------
+ |  Data descriptors defined here:
+ |  
+ |  endpos
+ |      The index into the string beyond which the RE engine will not go.
+ |  
+ |  lastgroup
+ |      The name of the last matched capturing group.
+ |  
+ |  lastindex
+ |      The integer index of the last matched capturing group.
+ |  
+ |  pos
+ |      The index into the string at which the RE engine started looking for a match.
+ |  
+ |  re
+ |      The regular expression object.
+ |  
+ |  regs
+ |  
+ |  string
+ |      The string passed to match() or search().
+

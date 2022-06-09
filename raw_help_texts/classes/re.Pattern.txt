@@ -1,0 +1,80 @@
+Help on class Pattern in re:
+
+re.Pattern = class Pattern(builtins.object)
+ |  Compiled regular expression object.
+ |  
+ |  Methods defined here:
+ |  
+ |  __copy__(self, /)
+ |  
+ |  __deepcopy__(self, memo, /)
+ |  
+ |  __eq__(self, value, /)
+ |      Return self==value.
+ |  
+ |  __ge__(self, value, /)
+ |      Return self>=value.
+ |  
+ |  __gt__(self, value, /)
+ |      Return self>value.
+ |  
+ |  __hash__(self, /)
+ |      Return hash(self).
+ |  
+ |  __le__(self, value, /)
+ |      Return self<=value.
+ |  
+ |  __lt__(self, value, /)
+ |      Return self<value.
+ |  
+ |  __ne__(self, value, /)
+ |      Return self!=value.
+ |  
+ |  __repr__(self, /)
+ |      Return repr(self).
+ |  
+ |  findall(self, /, string, pos=0, endpos=9223372036854775807)
+ |      Return a list of all non-overlapping matches of pattern in string.
+ |  
+ |  finditer(self, /, string, pos=0, endpos=9223372036854775807)
+ |      Return an iterator over all non-overlapping matches for the RE pattern in string.
+ |      
+ |      For each match, the iterator returns a match object.
+ |  
+ |  fullmatch(self, /, string, pos=0, endpos=9223372036854775807)
+ |      Matches against all of the string.
+ |  
+ |  match(self, /, string, pos=0, endpos=9223372036854775807)
+ |      Matches zero or more characters at the beginning of the string.
+ |  
+ |  scanner(self, /, string, pos=0, endpos=9223372036854775807)
+ |  
+ |  search(self, /, string, pos=0, endpos=9223372036854775807)
+ |      Scan through string looking for a match, and return a corresponding match object instance.
+ |      
+ |      Return None if no position in the string matches.
+ |  
+ |  split(self, /, string, maxsplit=0)
+ |      Split string by the occurrences of pattern.
+ |  
+ |  sub(self, /, repl, string, count=0)
+ |      Return the string obtained by replacing the leftmost non-overlapping occurrences of pattern in string by the replacement repl.
+ |  
+ |  subn(self, /, repl, string, count=0)
+ |      Return the tuple (new_string, number_of_subs_made) found by replacing the leftmost non-overlapping occurrences of pattern with the replacement repl.
+ |  
+ |  ----------------------------------------------------------------------
+ |  Data descriptors defined here:
+ |  
+ |  flags
+ |      The regex matching flags.
+ |  
+ |  groupindex
+ |      A dictionary mapping group names to group numbers.
+ |  
+ |  groups
+ |      The number of capturing groups in the pattern.
+ |  
+ |  pattern
+ |      The pattern string from which the RE object was compiled.
+

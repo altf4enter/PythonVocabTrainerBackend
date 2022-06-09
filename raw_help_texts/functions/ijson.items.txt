@@ -1,0 +1,4 @@
+Help on function items in ijson:
+
+items(source, prefix, map_type=None, buf_size=65536, **config)
+
